@@ -1,0 +1,9 @@
+[Unit]
+Description=beehive backend server
+After=network.target
+
+[Service]
+ExecStart=BINDIR/beehive-server -addr 127.0.0.1:BACKENDPORT
+
+[Install]
+WantedBy=multi-user.target
