@@ -1,0 +1,42 @@
+/* Copyright (C) 2016-2017 Anonymous
+ * RWTXliExJCquO54R+qP94i4V+X8bQegE6L9EjhKIH23ePweJG8u7dqDK
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. See COPYING for the full text of the License.
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body,
+input {
+  font: 12px 'Noto Sans', sans-serif;
+}
+
+#playlist {
+  margin: 0;
+  padding: 0;
+}
+
+#playlist li {
+  background: #e8e8e8;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+#playlist li:nth-child(even) {
+  background: #f8f8f8;
+}
+
+p {
+  flex: 1;
+  margin: 0;
+}

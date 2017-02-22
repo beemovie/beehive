@@ -1,0 +1,13 @@
+untrusted comment: verify with beehive.pub
+RWTXliExJCquO1kQqfw5Axpyl/e6DarSv2FQln2LgOIoHQhBiXCdz+7QuUD/zGhgP/LPBSsJD5z819eGE4K2MoiyGWpI5FtgZAU=
+SHA256 (.gitignore) = 7f1449aa6b5c22585727e0d7ef4b16a112119fb0b8f472d7ab4d3a974369dc6d
+SHA256 (COPYING) = 57c8ff33c9c0cfc3ef00e650a1cc910d7ee479a8bc509f6c9209a7c2a11399d6
+SHA256 (README.md) = b2c0957c0e924a17f83d225f82f9bbd130063c1a6cbdeaf56705d7a9d2293c89
+SHA256 (app.yaml) = 74867770a31eebe4a31254060257b424d94fb141bcc5bebbc0a94d70d1e0f03c
+SHA256 (musiclocker/server.go) = 3670380c346e7c7413aefb6a0729f6ea992002386d4cdab68a766c4524435119
+SHA256 (static/beehive.css) = 342b6d059cb6a22331d00bd2ef75d669ee5ae871af8427ab5d9348e692d11fef
+SHA256 (static/beehive.js) = 01749ea68806f67d89ac7f1fe5a1d7707341542649beb4191ccf8e70db0f212e
+SHA256 (static/favicon.ico) = 870a3ef4fb6c4d8f9026abf03f2fc264a36ff2e4a26a09c2c19f3fcaddbeef1b
+SHA256 (static/manifest.txt) = 035834030c0a66f1b0e3430be89433c86da0377b0e0cbd0cb647cd676d5ec1c6
+SHA256 (static/robots.txt) = 331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1
+SHA256 (templates/index.template.html) = 0be7e1e996d55c60e13eb55ecad35a3ca13181f1ed632e2c82b49c6b297c0432

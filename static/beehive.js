@@ -1,12 +1,10 @@
-// beehive.js
-// Copyright (C) 2016 Beehive Authors
+// Copyright (C) 2016-2017 Anonymous
+// RWTXliExJCquO54R+qP94i4V+X8bQegE6L9EjhKIH23ePweJG8u7dqDK
 //
-// This program is free software: you can redistribute it and/or modify it
-// under the terms of the GNU Affero General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version.
-//
-// See COPYING for a full copy of the GNU Affero General Public License.
+// This program is free software: you can redistribute it and/or modify it under
+// the terms of the GNU Affero General Public License as published by the Free
+// Software Foundation, either version 3 of the License, or (at your option) any
+// later version. See COPYING for the full text of the License.
 
 'use strict';
 
@@ -45,7 +43,7 @@ function handleTimerExpiration() {
   if (!query.value) return;
   timer = undefined;
   const xhr = new XMLHttpRequest();
-  const path = '/_beehive/query?q=' + encodeURIComponent(query.value);
+  const path = '/api/query?q=' + encodeURIComponent(query.value);
   xhr.addEventListener('load', handleResponse);
   xhr.open('GET', path, true);
   xhr.responseType = 'document';

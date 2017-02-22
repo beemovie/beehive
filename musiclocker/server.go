@@ -1,24 +1,19 @@
-// server.go
-// Copyright (C) 2016 Beehive Authors
+// Copyright (C) 2016-2017 Anonymous
+// RWTXliExJCquO54R+qP94i4V+X8bQegE6L9EjhKIH23ePweJG8u7dqDK
 //
 // This program is free software: you can redistribute it and/or modify it under
 // the terms of the GNU Affero General Public License as published by the Free
 // Software Foundation, either version 3 of the License, or (at your option) any
-// later version.
-//
-// See COPYING for a full copy of the GNU Affero General Public License.
-//
-package main
+// later version. See COPYING for the full text of the License.
+
+package musiclocker
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
+	"html/template"
 )
-
-var addr = flag.String("addr", "127.0.0.1:8080",
-	"Port and address on which to bind")
 
 const response = `<?xml version="1.0" encoding="UTF-8"?>
 <bee:tracklist xmlns:bee="http://example.com/beehive/2016">
@@ -41,17 +36,27 @@ const response = `<?xml version="1.0" encoding="UTF-8"?>
 </bee:tracklist>
 `
 
-func query(w http.ResponseWriter, r *http.Request) {
-	q := r.FormValue("q")
-	if q == "" {
-		http.Error(w, "missing field", 422)
+func init() {
+	markup, err := template.ParseFiles("templates/index.template.html")
+	if err != nil {
+		log.Panic("could not create template")
 	}
+
+	index := IndexHandler{markup: markup}
+	http.HandleFunc("/api/query", query)
+	http.Handle("/tunes", index)
+}
+
+func query(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/xml")
 	fmt.Fprintf(w, response)
 }
 
-func main() {
-	flag.Parse()
-	http.HandleFunc("/_beehive/query", query)
-	log.Fatal(http.ListenAndServe(*addr, nil))
+type IndexHandler struct {
+	markup *template.Template
+}
+
+func (h IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	h.markup.Execute(w, nil)
 }

@@ -2,53 +2,87 @@
 
 beehive is a personal music locker service with some unique features.
 
-* Browse million-song libraries even with a poor internet connection.
-* Playlist engine based based on simple text or voice queries.
-* Smaller footprint by separating metadata from audio data.
-* Todo lists for continuous improvement of tags and recommendations.
+  * Store all your music on Google Cloud for pennies per day (or even free if
+    qualified for the free quotas!)
 
-beehive is powered by several Google Cloud Platform technologies,
-including [Google Cloud Storage](https://cloud.google.com/storage/) and
-the [Google Cloud Speech API](https://cloud.google.com/speech/).
+  * Browse giant libraries in browser, even with a poor internet connection.
+
+  * Tags replace genres and likes, with trivial playlists based on tags.
+
+  * Playlist generation engine based on simple text queries.
+
+  * Todo lists for continuous improvement of tags and recommendations.
+
+beehive is powered by several Google Cloud Platform services,
+including [Google App Engine][] and [Google Cloud Storage][].
+
+[Google App Engine]: https://cloud.google.com/appengine/
+[Google Cloud Storage]: https://cloud.google.com/storage/
+
 
 ## Example queries
 
-Queries are specified as case-insensitive ASCII text. They do not have
-context (cannot refer to history of tracks already played).
+Queries are specified as ASCII text, using only alphanumerics and spaces. They
+have no context; they cannot refer to past queries or recent play history.
 
-```
-similar to ty segall
+    similar to always by erasure
+    similar to aphex twin
+    tagged #pop and loved
+    loved in 2014
+    released in early 2016 and loved
+    tagged #rave and loved in 1997
 
-similar to always by erasure
+(`loved` describes songs which were often played during a given time period, as
+opposed to `released` which was when it was first publically available.)
 
-liked this year
+beehive uses only a few heuristics to determine similar tracks:
 
-liked and released this year
+  * Tracks released in the same time period.
 
-liked and released in 1990 to 1995 and tagged rave
-```
+  * Tracks loved in the same time windows.
+
+  * Tracks which share tags.
+
+
+## Running
+
+This software runs on the Google App Engine SDK for Go or equivalent
+environment.
+
+The source code repository is on [GitHub](https://github.com/beemovie/beehive):
+
+    git clone git@github.com/beemovie/beehive.git
+    cd beehive
+    goapp serve
+
+Altenatively, all source code can be obtained directly from a running instance
+if the above repository is no longer available or valid, using `wget`:
+
+    mkdir beehive
+    cd beehive
+    wget -x -nH -i http://example.appspot.com/manifest
+
+Signatures with [signify](http://man.openbsd.org/signify) are made on each
+commit for authorship and checksum verification; you can verify after obtaining
+the public key from a trusted source.
+
+    signify -C -p beehive.pub -x SHA256.sig
+
 
 ## Development
 
-beehive is developed as an anonymous work. This means we do not typically accept
-pull requests, as any other author could later choose to identify themselves or
-be identified.
+This project is developed as an anonymous work. It is released under the AGPLv3+
+with the hope that users will be free to modify any future variant. If you
+release patches or fork, you are encouraged to explicitly assign copyright to
+the original author, Anonymous, for easy inclusion into upstream.
 
-It is released under copyleft terms with the hope that any user will be able to
-change any future variant of the software as they see fit.
 
 ## Copying
 
-Copyright (C) 2016 Beehive Authors
+Copyright (C) 2016-2017 Anonymous
+RWTXliExJCquO54R+qP94i4V+X8bQegE6L9EjhKIH23ePweJG8u7dqDK
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU Affero General Public License as published by the Free
 Software Foundation, either version 3 of the License, or (at your option) any
-later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License along
-with this program. If not, see <http://www.gnu.org/licenses/>.
+later version. See [COPYING](COPYING) for the full text of the License.
