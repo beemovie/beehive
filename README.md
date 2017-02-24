@@ -71,18 +71,25 @@ the public key from a trusted source.
 
 ## Development
 
-This project is developed as an anonymous work. It is released under the AGPLv3+
-with the hope that users will be free to modify any future variant. If you
-release patches or fork, you are encouraged to explicitly assign copyright to
-the original author, Anonymous, for easy inclusion into upstream.
+This project is developed as an anonymous work. If you release patches or fork,
+you are encouraged to explicitly assign copyright to the original author,
+Anonymous, for easy inclusion into upstream.
+
+It is released under the AGPLv3+ with the hope that users will be free
+to modify any future variant.
 
 
 ## Copying
 
 Copyright (C) 2016-2017 Anonymous
+
 RWTXliExJCquO54R+qP94i4V+X8bQegE6L9EjhKIH23ePweJG8u7dqDK
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU Affero General Public License as published by the Free
 Software Foundation, either version 3 of the License, or (at your option) any
 later version. See [COPYING](COPYING) for the full text of the License.
+
+The Roboto font by Google is provided with this source code for zero external
+dependencies. It is available under the Apache License, Version 2.0;
+see [COPYING.APL](COPYING.APL) for a copy of that License.
