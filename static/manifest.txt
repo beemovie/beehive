@@ -1,10 +1,13 @@
 COPYING
+COPYING.APL
 musiclocker/server.go
 README.md
 SHA256.sig
 static/app.yaml
+static/beehive-bold.woff2
 static/beehive.css
 static/beehive.js
+static/beehive.woff2
 static/favicon.ico
 static/manifest.txt
 static/robots.txt
