@@ -4,10 +4,10 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /(COPYING|README\.md|SHA256\.sig)$
+- url: /(COPYING|COPYING\.APL|README\.md|SHA256\.sig)$
   mime_type: text/plain
   static_files: \1
-  upload: (COPYING|README\.md|SHA256\.sig)$
+  upload: (COPYING|COPYING\.APL|README\.md|SHA256\.sig)$
 
 - url: /favicon\.ico$
   static_files: static/favicon.ico
