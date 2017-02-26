@@ -9,15 +9,15 @@ handlers:
 
 - url: /musiclocker
   mime_type: text/plain
-  static_dir: musiclocker
+  static_dir: mirror/
 
 - url: /templates
   mime_type: text/plain
-  static_dir: templates
+  static_dir: templates/
 
 - url: /testdata
   mime_type: text/plain
-  static_dir: testdata
+  static_dir: testdata/
 
 - url: /manifest
   mime_type: text/plain
@@ -37,5 +37,5 @@ handlers:
   static_files: \1
   upload: (COPYING|README\.md|SHA256\.sig|app\.yaml)$
 
-- url: /.*
+- url: /(tunes|v1/.*)$
   script: _go_app
