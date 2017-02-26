@@ -11,9 +11,10 @@ package musiclocker
 import (
 	"encoding/xml"
 	"fmt"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -51,24 +52,24 @@ type Tag struct {
 func newState() *State {
 	markup, err := template.ParseFiles("templates/index.template.html")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	l, err := ioutil.ReadFile("templates/license.template.html")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	license := template.HTML(string(l))
 
 	t, err := ioutil.ReadFile("testdata/tracklist.xml")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	var tracks TrackList
 	err = xml.Unmarshal(t, &tracks)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	return &State{markup, license, tracks}
@@ -78,9 +79,11 @@ func (c *State) tracks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/xml")
 	fmt.Fprintf(w, xml.Header)
 
+	ctx := appengine.NewContext(r)
+
 	out, err := xml.Marshal(c.TrackList)
 	if err != nil {
-		log.Print(err)
+		log.Errorf(ctx, "%v", err)
 		http.Error(w, err.Error(), 500)
 		return
 	}
@@ -90,8 +93,11 @@ func (c *State) tracks(w http.ResponseWriter, r *http.Request) {
 
 func (c *State) index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+
+	ctx := appengine.NewContext(r)
+
 	if err := c.Markup.Execute(w, c); err != nil {
-		log.Print(err)
+		log.Errorf(ctx, "%v", err)
 		http.Error(w, err.Error(), 500)
 	}
 }
