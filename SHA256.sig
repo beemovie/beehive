@@ -1,5 +1,5 @@
 untrusted comment: verify with beehive.pub
-RWTXliExJCquO4fGJN8OWJyPkvY1g3iopNQ6VmTv8WDuGdBheJArxJWKyOuabUpWjgShYUBdkHaiXeA2Ydk+Wfz8SoVu0WtPlAs=
+RWTXliExJCquOyDo9h1p8upKpwTaaX9ZJBh2nvF11fX2OMGbPX5dgFxKqE4RnqXtwAVPfMpSoYBE0Nngci4aDEOqMKdf7amtbAc=
 SHA256 (.gitignore) = 7f1449aa6b5c22585727e0d7ef4b16a112119fb0b8f472d7ab4d3a974369dc6d
 SHA256 (COPYING) = 57c8ff33c9c0cfc3ef00e650a1cc910d7ee479a8bc509f6c9209a7c2a11399d6
 SHA256 (COPYING.APL) = c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
@@ -13,6 +13,6 @@ SHA256 (static/beehive.woff2) = f7bbc8461b2f4cc870743729ee5d44ce0466ca67618f89a8
 SHA256 (static/favicon.ico) = 870a3ef4fb6c4d8f9026abf03f2fc264a36ff2e4a26a09c2c19f3fcaddbeef1b
 SHA256 (static/manifest.txt) = 489aef12806a029fa20bf93eeb47106ff093f8a5f7f98c17deb89b715c21f9e6
 SHA256 (static/robots.txt) = 331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1
-SHA256 (templates/index.template.html) = df9601f5c0da7b873a232b093a84f829be9634e1e359d4cd2df21f56dafad3d2
+SHA256 (templates/index.template.html) = 1673f8f826c6e9a7ba75c8982aea211ec5d1c5ee11385eb9f9e3ec054d65c622
 SHA256 (templates/license.template.html) = 2480c2973540c557e9de7d7cde06e566f2d596b97ac9cd54977810e3e8450f7c
 SHA256 (testdata/tracklist.xml) = 89d93e9c6b4b5d8fced08931a2adb66b60c23e1d7e297f110be5337f5b53b822
