@@ -7,36 +7,161 @@
  * later version. See COPYING for the full text of the License.
  */
 
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+@font-face {
+  font-family: 'Beehive';
+  font-weight: 400;
+  font-style: normal;
+  src: url(beehive.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Beehive';
+  font-weight: 700;
+  font-style: normal;
+  src: url(beehive-bold.woff2) format('woff2');
+}
 
 html,
 body {
+  background: #eee;
+  display: flex;
+  flex-direction: column;
+  font: bold 12px 'Beehive', 'Roboto', 'Noto Sans', sans-serif;
   height: 100%;
-  margin: 0;
-}
-
-body,
-input {
-  font: 12px 'Noto Sans', sans-serif;
-}
-
-#playlist {
   margin: 0;
   padding: 0;
 }
 
+header {
+  background: #333;
+  box-shadow: 0 -2px 10px 4px rgba(0, 0, 0, 0.4);
+}
+
+input {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  transition: background-color 0.45s 0.15s ease-in-out;
+  width: 100%
+}
+
+input:focus {
+  background-color: #558b2f;
+  transition: background-color 0.24s 0.15s ease-in-out;
+}
+
+#playlist {
+  flex-grow: 1;
+  margin: 0;
+  padding: 16px;
+}
+
 #playlist li {
-  background: #e8e8e8;
+  background: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.11),
+              0 1px 9px 0 rgba(0, 0, 0, 0.12),
+              0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+  color: #333;
   display: flex;
   flex-direction: row;
+  line-height: 0.94em;
   list-style: none;
+  margin: 16px auto;
+  padding: 16px;
+  max-width: 1116px; min-width: 240px;
+}
+
+#playlist li + li {
+  margin-top: -16px;
 }
 
 #playlist li:nth-child(even) {
-  background: #f8f8f8;
+  background: #f7fff9;
+}
+
+.button {
+  border-radius: 4px;
+  align-self: flex-end;
+  flex-grow: 0;
+  font-size: 15px;
+  margin: -2px 0 0;
+  padding: 2px 6px;
+  text-align: center;
+}
+
+.artist {
+  color: #558b2f;
+}
+
+.title {
+  color: #444;
+}
+
+.year {
+  background: #9b9;
+  color: #fff;
+}
+
+.album {
+  color: #8a8;
 }
 
 p {
   flex: 1;
   margin: 0;
+}
+
+#dev {
+    display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  input { font-size: 31px; }
+  #playlist li { font-size: 21px; }
+  .artist { display: flex; flex-grow: 3; }
+  .title { display: flex; flex-grow: 4; }
+  .year { display: flex; flex-grow: 0; flex-basis: auto; }
+  .album { display: flex; flex-grow: 4; margin-left: 20px; }
+}
+
+@media only screen and (min-width: 896px) and (max-width: 991px) {
+  input { font-size: 30px; }
+  #playlist li { font-size: 24px; }
+  .artist { display: flex; flex-grow: 3; }
+  .title { display: flex; flex-grow: 5; }
+  .year { display: flex; flex-grow: 0; flex-basis: auto; }
+  .album { display: none; }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 895px) {
+  input { font-size: 29px; }
+  #playlist li { font-size: 23px; }
+  .artist { display: flex; flex-grow: 2; }
+  .title { display: flex; flex-grow: 3; }
+  .year { display: flex; flex-grow: 0; flex-basis: auto; }
+  .album { display: none; }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 767px) {
+  input { font-size: 28px; }
+  #playlist li { font-size: 22px; }
+  .artist { display: flex; flex-grow: 2; }
+  .title { display: flex; flex-grow: 3; }
+  .year { display: flex; flex-grow: 0; flex-basis: auto; }
+  .album { display: none; }
+}
+
+@media only screen and (max-width: 639px) {
+  input { font-size: 28px; }
+  #playlist li { font-size: 22px; display: block; }
+  .artist { display: inline; }
+  .title { display: inline; }
+  .title::before { color: #aaa; content: "\00a0\2014\00a0"; }
+  .year { display: none; }
+  .album { display: none; }
 }

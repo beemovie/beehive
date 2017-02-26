@@ -25,15 +25,26 @@ function handleResponse() {
     const track = tracks[i];
 
     const artist = document.createElement('p');
+    artist.classList.add('artist');
     artist.innerHTML = track.getAttribute('artist');
-    const album = document.createElement('p');
-    album.innerHTML = track.getAttribute('album');
+
     const title = document.createElement('p');
+    title.classList.add('title');
     title.innerHTML = track.getAttribute('title');
 
+    const year = document.createElement('p');
+    year.classList.add('button');
+    year.classList.add('year');
+    year.innerHTML = track.getAttribute('year');
+
+    const album = document.createElement('p');
+    album.classList.add('album');
+    album.innerHTML = track.getAttribute('album');
+
     const trackElement = document.createElement('li');
-    trackElement.appendChild(title);
     trackElement.appendChild(artist);
+    trackElement.appendChild(title);
+    trackElement.appendChild(year);
     trackElement.appendChild(album);
     playlist.appendChild(trackElement);
   }
@@ -43,7 +54,7 @@ function handleTimerExpiration() {
   if (!query.value) return;
   timer = undefined;
   const xhr = new XMLHttpRequest();
-  const path = '/api/query?q=' + encodeURIComponent(query.value);
+  const path = '/v1/tracks/?q=' + encodeURIComponent(query.value);
   xhr.addEventListener('load', handleResponse);
   xhr.open('GET', path, true);
   xhr.responseType = 'document';
@@ -57,6 +68,6 @@ function handleQueryChange() {
 
 query.addEventListener('input', handleQueryChange);
 window.addEventListener('load', function() {
-  query.value = 'liked this year';
+  query.value = '#bangers';
   handleQueryChange();
 });

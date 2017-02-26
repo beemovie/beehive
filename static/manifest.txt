@@ -9,3 +9,5 @@ static/favicon.ico
 static/manifest.txt
 static/robots.txt
 templates/index.template.html
+templates/license.template.html
+testdata/tracklist.xml

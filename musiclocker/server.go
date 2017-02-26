@@ -9,54 +9,89 @@
 package musiclocker
 
 import (
+	"encoding/xml"
 	"fmt"
+	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"html/template"
 )
 
-const response = `<?xml version="1.0" encoding="UTF-8"?>
-<bee:tracklist xmlns:bee="http://example.com/beehive/2016">
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-  <bee:track src="src" artist="artist" album="album" title="title" rating="5" />
-</bee:tracklist>
-`
-
 func init() {
+	c := newState()
+	http.HandleFunc("/v1/tracks/", c.tracks)
+	http.HandleFunc("/tunes", c.index)
+}
+
+type State struct {
+	Markup    *template.Template
+	License   template.HTML
+	TrackList TrackList
+}
+
+type TrackList struct {
+	XMLName xml.Name `xml:"tracklist"`
+	Tracks  []Track  `xml:"track"`
+}
+
+type Track struct {
+	XMLName xml.Name `xml:"track"`
+	Artist  string   `xml:"artist,attr"`
+	Album   string   `xml:"album,attr"`
+	Title   string   `xml:"title,attr"`
+	Year    string   `xml:"year,attr"`
+	Tags    []Tag    `xml:"tag"`
+}
+
+type Tag struct {
+	XMLName xml.Name `xml:"tag"`
+	Text    string   `xml:"text,attr"`
+}
+
+func newState() *State {
 	markup, err := template.ParseFiles("templates/index.template.html")
 	if err != nil {
-		log.Panic("could not create template")
+		log.Fatal(err)
 	}
 
-	index := IndexHandler{markup: markup}
-	http.HandleFunc("/api/query", query)
-	http.Handle("/tunes", index)
+	l, err := ioutil.ReadFile("templates/license.template.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	license := template.HTML(string(l))
+
+	t, err := ioutil.ReadFile("testdata/tracklist.xml")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var tracks TrackList
+	err = xml.Unmarshal(t, &tracks)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return &State{markup, license, tracks}
 }
 
-func query(w http.ResponseWriter, r *http.Request) {
+func (c *State) tracks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/xml")
-	fmt.Fprintf(w, response)
+	fmt.Fprintf(w, xml.Header)
+
+	out, err := xml.Marshal(c.TrackList)
+	if err != nil {
+		log.Print(err)
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Write(out)
 }
 
-type IndexHandler struct {
-	markup *template.Template
-}
-
-func (h IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (c *State) index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	h.markup.Execute(w, nil)
+	if err := c.Markup.Execute(w, c); err != nil {
+		log.Print(err)
+		http.Error(w, err.Error(), 500)
+	}
 }

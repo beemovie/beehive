@@ -15,6 +15,10 @@ handlers:
   mime_type: text/plain
   static_dir: templates
 
+- url: /testdata
+  mime_type: text/plain
+  static_dir: testdata
+
 - url: /manifest
   mime_type: text/plain
   static_files: static/manifest.txt

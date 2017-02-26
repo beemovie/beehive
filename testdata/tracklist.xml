@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bee:tracklist xmlns:bee="http://github.com/beemovie/beehive/2016">
+  <bee:track discogs="808-State-Quadrastate/release/3554" src="jWV9Ikrj2vz.mp3"
+             artist="808 State" album="Quadrastate" title="Fire Cracker"
+             year="1989">
+    <bee:tag text="#banger"/>
+    <bee:tag text="#rave"/>
+    <bee:tag text="#ukhardcore"/>
+  </bee:track>
+  <bee:track discogs="Randall-Andy-C-Sound-Control-Feel-It/release/1479"
+             src="Jx94h8XGMHT.mp3" artist="Randall &#038; Andy C"
+             album="Sound Control / Feel It" title="Feel It" year="1994">
+    <bee:tag text="#banger"/>
+    <bee:tag text="#jungle"/>
+  </bee:track>
+  <bee:track discogs="Adam-F-Lighter-Style/release/74364" src="iQX7wTRx6jH.mp3"
+             artist="Adam F" album="Lighter Style" title="Lighter Style"
+             year="1995">
+    <bee:tag text="#banger"/>
+    <bee:tag text="#jungle"/>
+  </bee:track>
+  <bee:track discogs="Lemon-D-Jah-Love/release/1463170" src="QGg5H0Awa7e.mp3"
+             artist="Lemon D" album="Jah Love" title="Manhattan Melody"
+             year="1995">
+    <bee:tag text="#banger"/>
+    <bee:tag text="#jungle"/>
+    <bee:tag text="#breakbeat"/>
+  </bee:track>
+</bee:tracklist>
