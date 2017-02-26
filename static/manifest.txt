@@ -1,8 +1,8 @@
-app.yaml
 COPYING
 musiclocker/server.go
 README.md
 SHA256.sig
+static/app.yaml
 static/beehive.css
 static/beehive.js
 static/favicon.ico

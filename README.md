@@ -60,7 +60,7 @@ if the above repository is no longer available or valid, using `wget`:
 
     mkdir beehive
     cd beehive
-    wget -x -nH -i http://example.appspot.com/manifest
+    wget -x -nH -i https://example.appspot.com/static/manifest.txt
 
 Signatures with [signify](http://man.openbsd.org/signify) are made on each
 commit for authorship and checksum verification; you can verify after obtaining
