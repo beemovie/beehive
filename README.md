@@ -1,72 +1,59 @@
 # beehive
 
-beehive is a personal music locker service with some unique features.
+beehive is a personal music locker server which runs on [Google App Engine][]
+and uses other Google Cloud services.
+
+It has some unique features:
+
+  * Efficiently browse giant libraries, even with a poor internet connection,
+    using the "omnibox" which generates a mix from hashtag-based query language:
+
+        #sleep
+        #pop #new
+        #footwork #2016
+
+  * Tags replace genres, playlists and likes, with an expanding vocabulary of
+    smart tags like #new, artist tags, year tags and others.
+
+  * Jump to individual songs or reorder the current mix as desired. Tags that
+    end with "mix" preserve the ordering when searched.
 
   * Store all your music on Google Cloud for pennies per day (or even free if
     qualified for the free quotas!)
 
-  * Browse giant libraries in browser, even with a poor internet connection.
-
-  * Tags replace genres and likes, with trivial playlists based on tags.
-
-  * Playlist generation engine based on simple text queries.
-
-  * Todo lists for continuous improvement of tags and recommendations.
-
-beehive is powered by several Google Cloud Platform services,
-including [Google App Engine][] and [Google Cloud Storage][].
-
 [Google App Engine]: https://cloud.google.com/appengine/
-[Google Cloud Storage]: https://cloud.google.com/storage/
+[Google Cloud Shell]: https://cloud.google.com/shell/
 
 
-## Example queries
+## Query language
 
 Queries are specified as ASCII text, using only alphanumerics and spaces. They
 have no context; they cannot refer to past queries or recent play history.
-
-    similar to always by erasure
-    similar to aphex twin
-    tagged #pop and loved
-    loved in 2014
-    released in early 2016 and loved
-    tagged #rave and loved in 1997
-
-(`loved` describes songs which were often played during a given time period, as
-opposed to `released` which was when it was first publically available.)
-
-beehive uses only a few heuristics to determine similar tracks:
-
-  * Tracks released in the same time period.
-
-  * Tracks loved in the same time windows.
-
-  * Tracks which share tags.
 
 
 ## Running
 
 This software runs on the Google App Engine SDK for Go or equivalent
-environment.
+environment. One easy way to get access to an authenticated client is to run the
+below commands on [Google Cloud Shell][]:
 
-The source code repository is on [GitHub](https://github.com/beemovie/beehive):
-
-    git clone git@github.com/beemovie/beehive.git
+    git clone https://github.com/beemovie/beehive.git
     cd beehive
     goapp serve
 
-Altenatively, all source code can be obtained directly from a running instance
-if the above repository is no longer available or valid, using `wget`:
+(Alternatively, all source code can be obtained directly from a running instance
+if the above repository is no longer available using [manifest.txt][] included
+in each installation.)
 
-    mkdir beehive
-    cd beehive
-    wget -x -nH -i https://example.appspot.com/static/manifest.txt
-
-Signatures with [signify](http://man.openbsd.org/signify) are made on each
-commit for authorship and checksum verification; you can verify after obtaining
-the public key from a trusted source.
+Signatures with [signify][] are made on each commit for authorship and checksum
+verification; these signatures can be verified after obtaining the public key
+from a trusted source with:
 
     signify -C -p beehive.pub -x SHA256.sig
+
+[Google Cloud Shell]: https://cloud.google.com/shell/
+[manifest.txt]: static/manifest.txt
+[signify]: http://man.openbsd.org/signify
 
 
 ## Development
@@ -75,8 +62,8 @@ This project is developed as an anonymous work. If you release patches or fork,
 you are encouraged to explicitly assign copyright to the original author,
 Anonymous, for easy inclusion into upstream.
 
-It is released under the AGPLv3+ with the hope that users will be free
-to modify any future variant.
+It is released under the AGPLv3+ with the hope that users will always be free to
+run it and tweak it.
 
 
 ## Copying
