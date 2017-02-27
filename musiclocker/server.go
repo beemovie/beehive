@@ -11,6 +11,7 @@ package musiclocker
 import (
 	"encoding/xml"
 	"fmt"
+	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 	"html/template"
@@ -20,14 +21,53 @@ import (
 
 func init() {
 	c := newState()
-	http.HandleFunc("/v1/tracks/", c.tracks)
 	http.HandleFunc("/tunes", c.index)
+	http.HandleFunc("/v1/tracks/", c.tracks)
+	http.HandleFunc("/v1/upload/", c.upload)
+}
+
+func (c *State) index(w http.ResponseWriter, r *http.Request) {
+	c.initRequest(w, r)
+
+	w.Header().Set("Content-Type", "text/html")
+	if err := c.Markup.Execute(w, c); err != nil {
+		c.error(err)
+	}
+}
+
+func (c *State) tracks(w http.ResponseWriter, r *http.Request) {
+	c.initRequest(w, r)
+
+	out, err := xml.Marshal(c.TrackList)
+	if err != nil {
+		c.error(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/xml")
+	fmt.Fprintf(w, xml.Header)
+
+	w.Write(out)
+}
+
+func (c *State) upload(w http.ResponseWriter, r *http.Request) {
+	c.initRequest(w, r)
+
+	const maxMem = 1024 * 1024 * 32
+	err := r.ParseMultipartForm(maxMem)
+	if err != nil {
+		c.error(err)
+		return
+	}
 }
 
 type State struct {
-	Markup    *template.Template
-	License   template.HTML
-	TrackList TrackList
+	Markup     *template.Template
+	License    template.HTML
+	TrackList  TrackList
+	GAEContext context.Context
+	Request    *http.Request
+	Writer     http.ResponseWriter
 }
 
 type TrackList struct {
@@ -72,32 +112,21 @@ func newState() *State {
 		panic(err)
 	}
 
-	return &State{markup, license, tracks}
+	return &State{
+		Markup:    markup,
+		License:   license,
+		TrackList: tracks,
+	}
 }
 
-func (c *State) tracks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/xml")
-	fmt.Fprintf(w, xml.Header)
-
-	ctx := appengine.NewContext(r)
-
-	out, err := xml.Marshal(c.TrackList)
-	if err != nil {
-		log.Errorf(ctx, "%v", err)
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	w.Write(out)
+func (c *State) initRequest(w http.ResponseWriter, r *http.Request) {
+	c.GAEContext = appengine.NewContext(r)
+	c.Request = r
+	c.Writer = w
 }
 
-func (c *State) index(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-
-	ctx := appengine.NewContext(r)
-
-	if err := c.Markup.Execute(w, c); err != nil {
-		log.Errorf(ctx, "%v", err)
-		http.Error(w, err.Error(), 500)
-	}
+func (c *State) error(err error) {
+	log.Errorf(c.GAEContext, "%v", err)
+	http.Error(c.Writer, err.Error(), 500)
+	return
 }
